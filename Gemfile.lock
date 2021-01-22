@@ -1,3 +1,9 @@
+PATH
+  remote: engines/resizing-rails
+  specs:
+    resizing-rails (0.1.0)
+      rails (~> 5.2.4, >= 5.2.4.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -201,6 +207,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.4)
+  resizing-rails!
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
