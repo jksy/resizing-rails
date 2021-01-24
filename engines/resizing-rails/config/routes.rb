@@ -1,3 +1,3 @@
 Resizing::Rails::Engine.routes.draw do
-  resources :video
+  resources :videos
 end
