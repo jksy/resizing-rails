@@ -1,7 +1,9 @@
 {
-  "name": "resizing-rails-sample",
+  "name": "resizing-rails",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "webpack-manifest-plugin": "^3.0.0"
+  },
   "devDependencies": {
     "webpack-cli": "^4.4.0"
   }
