@@ -11,12 +11,16 @@ module Resizing::Rails
 
     def prepare
       response = client.prepare
-      movie = Resizing::Rails::Video.create(response: response)
+      video = Resizing::Rails::Video.create!(response: response)
       render json: response
     end
 
     def client
       @client ||= Resizing::Video::Client.new
+    end
+
+    def show
+      @video = Resizing::Rails::Video.find(params[:id])
     end
   end
 end

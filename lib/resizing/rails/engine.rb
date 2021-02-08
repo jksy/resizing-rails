@@ -1,3 +1,9 @@
+Gem.loaded_specs['resizing-rails'].dependencies.each do |d|
+  require d.name
+rescue LoadError
+  require d.name.gsub('-', '/')
+end
+
 module Resizing
   module Rails
     class Engine < ::Rails::Engine
@@ -16,3 +22,4 @@ module Resizing
     end
   end
 end
+

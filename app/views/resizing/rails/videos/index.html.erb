@@ -6,7 +6,7 @@ index
 <% end %>
 
   <script>
-    video = new Resizing.Rails.Video(
+    video = new Resizing.Rails.VideoUploader(
       document.getElementById('video'),
       <%= raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json %>
     );
@@ -21,6 +21,10 @@ index
 
   <ul>
     <% @videos.each do |video| %>
-      <li><%= video.id %>:<%= video.state %></li>
+      <li>
+        <%= link_to video do %>
+          <%= video.video_id %>:<%= video.video_state %>
+        <% end %>
+      </li>
     <% end %>
   </ul>

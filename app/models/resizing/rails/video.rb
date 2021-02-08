@@ -2,10 +2,6 @@ module Resizing::Rails
   class Video < ApplicationRecord
     serialize :response, JSON
 
-    def id
-      response['id']
-    end
-
     %w(
       id
       project_id
@@ -24,7 +20,7 @@ module Resizing::Rails
       thumbnail_url
       job_state
     ).each do |name|
-      define_method name do
+      define_method "video_#{name}" do
         self.response[name]
       end
     end

@@ -27,6 +27,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2.4", ">= 5.2.4.4"
   spec.add_dependency "resizing", '~> 0.8.0.pre'
+  spec.add_dependency "slim-rails"
+  spec.add_dependency "sassc"
 
   spec.add_development_dependency "sqlite3"
 end
