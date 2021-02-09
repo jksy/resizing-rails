@@ -1,0 +1,24 @@
+index
+
+= form_tag '' do
+  = file_field_tag 'video', id: 'video'
+  = submit_tag 'submit', id: 'submit'
+
+javascript:
+  video = new Resizing.Rails.VideoUploader(
+    document.getElementById('video'),
+    <%= raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json %>
+  );
+  document.getElementById('submit').addEventListener(
+    'click',
+    (e) => {
+      e.preventDefault()
+      video.upload()
+    }
+  )
+
+ul
+  - @videos.each do |video|
+    li
+      = link_to video do
+        = "#{video.id}:#{video.video_id}:#{video.video_state}"
