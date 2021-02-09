@@ -1,14 +1,10 @@
 link href="//vjs.zencdn.net/7.8.2/video-js.min.css" rel="stylesheet"
 script src="//vjs.zencdn.net/7.8.2/video.min.js"
 
-javascript:
-  video = new Resizing.Rails.Video("#{@video.video_self_url}")
-  video.fetch()
-  console.log(video)
+#video
 
-/ video.video-js id=@video.video_id muted=true controls='' width=640 height=480 preload='metadata' data-setup="{}" poster=@video.video_thumbnail_url
-/   - if @video.video_m3u8_url
-/     source src=@video.video_m3u8_url type="application/x-mpegURL"
-/   - if @video.video_avc_url
-/     source src=@video.video_avc_url type="video/mp4"
-/
+javascript:
+  video_root = document.querySelector('#video')
+  video = new Resizing.Rails.Video("#{@video.video_self_url}", 'width: 640px; height: 480px;', video_root)
+  video.fetch()
+
