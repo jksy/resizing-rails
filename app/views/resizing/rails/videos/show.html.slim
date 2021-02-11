@@ -4,7 +4,9 @@ script src="//vjs.zencdn.net/7.8.2/video.min.js"
 #video
 
 javascript:
-  video_root = document.querySelector('#video')
-  video = new Resizing.Rails.Video("#{@video.video_self_url}", 'width: 640px; height: 480px;', video_root)
-  video.fetch()
+  document.addEventListener('DOMContentLoaded', function() {
+    video_root = document.querySelector('#video')
+    video = new Resizing.Rails.Video("#{@video.video_self_url}", 'width: 640px; height: 480px;', video_root)
+    video.fetch()
+  })
 
