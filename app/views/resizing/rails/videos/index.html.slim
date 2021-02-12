@@ -1,5 +1,3 @@
-index
-
 = form_tag '' do
   = file_field_tag 'video', id: 'video'
   = submit_tag 'submit', id: 'submit'
@@ -7,7 +5,7 @@ index
 javascript:
   video = new Resizing.Rails.VideoUploader(
     document.getElementById('video'),
-    <%= raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json %>
+    #{raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json}
   );
   document.getElementById('submit').addEventListener(
     'click',
@@ -20,5 +18,18 @@ javascript:
 ul
   - @videos.each do |video|
     li
+      img class='js-video-thumbnail' data-video-url=video.video_self_url style='width: 320px; height: 200px;'
       = link_to video do
         = "#{video.id}:#{video.video_id}:#{video.video_state}"
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function () {
+    elements = document.querySelectorAll('.js-video-thumbnail')
+    elements.forEach(elem => {
+      url = elem.getAttribute('data-video-url')
+      fetcher = new Resizing.Rails.VideoFetcher(url)
+      fetcher.fetch().then(data => {
+        elem.setAttribute('src', data.thumbnail_url)
+      })
+    })
+  })
