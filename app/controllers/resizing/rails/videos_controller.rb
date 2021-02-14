@@ -11,8 +11,8 @@ module Resizing::Rails
 
     def prepare
       response = client.prepare
-      video = Resizing::Rails::Video.create!(response: response)
-      render json: response
+      video = Resizing::Rails::Video.create!(data: response)
+      render json: video
     end
 
     def client

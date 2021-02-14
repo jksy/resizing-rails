@@ -3,7 +3,7 @@
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
     video_root = document.querySelector('#video')
-    video = new Resizing.Rails.Video("#{@video.video_self_url}", 'width: 640px; height: 480px;', video_root)
+    video = new Resizing.Rails.Video("#{@video.data_self_url}", 'width: 640px; height: 480px;', video_root)
     video.fetch()
   })
 

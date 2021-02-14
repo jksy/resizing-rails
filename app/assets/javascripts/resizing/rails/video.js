@@ -15,21 +15,25 @@ class Video {
 
   fetch() {
     let fetcher = new Resizing.Rails.VideoFetcher(this.self_url)
-    fetcher.fetch().then(data => {
-      if(data.thumbnail_url) {
-        this.renderVideo(data)
+    fetcher.fetch().then(record => {
+      console.log(record)
+      if(record.thumbnail_url) {
+        this.renderVideo(record)
       }
-      if(data.state != 'ready') {
+      if(record.state != 'ready') {
         setTimeout(this.fetch.bind(this), 30_000)
       }
     })
-
   }
 
-  renderVideo(data) {
-    this.video.poster(data.thumbnail_url)
-    this.video.src({type: 'application/x-mpegURL', src: data.m3u8_url})
-    this.video.src({type: 'video/mp4', src: data.avc_url})
+  renderVideo(record) {
+    this.video.poster(record.thumbnail_url)
+    if(record.m3u8_url) {
+      this.video.src({type: 'application/x-mpegURL', src: record.m3u8_url})
+    }
+    if(record.avc_url) {
+      this.video.src({type: 'video/mp4', src: record.avc_url})
+    }
   }
 
   buildVideoTag() {

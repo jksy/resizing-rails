@@ -7,6 +7,8 @@ javascript:
     document.getElementById('video'),
     #{raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json}
   );
+  video.addEventListener(function (state) {
+  })
   document.getElementById('submit').addEventListener(
     'click',
     (e) => {
@@ -18,9 +20,9 @@ javascript:
 ul
   - @videos.each do |video|
     li
-      img class='js-video-thumbnail' data-video-url=video.video_self_url style='width: 320px; height: 200px;'
+      img class='js-video-thumbnail' data-video-url=video.data_self_url style='width: 320px; height: 200px;'
       = link_to video do
-        = "#{video.id}:#{video.video_id}:#{video.video_state}"
+        = "#{video.id}:#{video.data_id}:#{video.data_state}"
 
 javascript:
   document.addEventListener('DOMContentLoaded', function () {

@@ -25,30 +25,22 @@ class VideoUploader {
     let body = JSON.stringify({filename: filename})
     fetch(this.prepare_url, {method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'}, body: body})
       .then(response => response.json())
-      .then(data => this.uploadFile(data))
+      .then(record => this.uploadFile(record))
   }
 
   uploadFile(record) {
     let file = this.file_field.files[0]
-    fetch(record.s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
+    let data = record.data
+    fetch(data.s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
       .then(response => console.log(response))
       .then(data => this.uploadDone(record))
   }
 
   uploadDone(record) {
-    fetch(record.upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
+    let data = record.data
+    fetch(data.upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
       .then(response => response.json())
-      .then(data => this.monitorState(data))
-  }
-
-  monitorState(record) {
-    setTimeout(()=> {
-      fetch(record.self_url, {method: 'GET', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
-        .then(response => response.json())
-        .then(data => {
-          this.monitorState(record)
-        })
-    }, 5000)
+      .then(data => window.location.pathname = record.self_path)
   }
 
   addEventListener(callback) {

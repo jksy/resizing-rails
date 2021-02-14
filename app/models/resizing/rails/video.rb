@@ -1,6 +1,6 @@
 module Resizing::Rails
   class Video < ApplicationRecord
-    serialize :response, JSON
+    serialize :data, JSON
 
     %w(
       id
@@ -20,9 +20,18 @@ module Resizing::Rails
       thumbnail_url
       job_state
     ).each do |name|
-      define_method "video_#{name}" do
-        self.response[name]
+      define_method "data_#{name}" do
+        self.data[name]
       end
+    end
+
+    def self_path
+      Resizing::Rails.railtie_routes_url_helpers.video_path(self)
+    end
+
+    def as_json *args
+      hash = super(*args)
+      hash.merge(self_path: self_path)
     end
   end
 end
