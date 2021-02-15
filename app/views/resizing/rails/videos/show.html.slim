@@ -1,9 +1,15 @@
-#video style='width: 500px; height: 300px;'
+
+.card
+  .card-img-top
+    #video
+  .card-body
+    .card-title title
+    p.card-text text
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
     video_root = document.querySelector('#video')
-    video = new Resizing.Rails.Video("#{@video.data_self_url}", 'width: 640px; height: 480px;', video_root)
+    video = new Resizing.Rails.Video("#{@video.data_self_url}", 'width: 100%; height: 100%;', video_root)
     video.fetch()
   })
 

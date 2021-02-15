@@ -10,7 +10,7 @@ class Video {
     this.style = style
     this.parentElement = parentElement
     let video = this.buildVideoTag(style)
-    this.video = videojs(video.id)
+    this.video = videojs(video.id, {fluid: true})
   }
 
   fetch() {
@@ -31,14 +31,14 @@ class Video {
     if(record.m3u8_url) {
       this.video.src({type: 'application/x-mpegURL', src: record.m3u8_url})
     }
-    if(record.avc_url) {
-      this.video.src({type: 'video/mp4', src: record.avc_url})
-    }
+    // if(record.avc_url) {
+    //   this.video.src({type: 'video/mp4', src: record.avc_url})
+    // }
   }
 
-  buildVideoTag() {
+  buildVideoTag(style) {
     let video = document.createElement('video')
-    video.setAttribute('style', 'width: 500px; height: 300px;')
+    // video.setAttribute('style', 'width: 100% !important; height 100% !important;')
     video.setAttribute('class', 'video-js')
     video.setAttribute('muted', 'true')
     video.setAttribute('controls', '')
@@ -48,7 +48,7 @@ class Video {
     video.id = `video-${this.generateUniqueId()}`
 
     if(this.style) {
-      video.setAttribute("style", this.style)
+      // video.setAttribute("style", this.style)
     }
     this.parentElement.appendChild(video)
     return video

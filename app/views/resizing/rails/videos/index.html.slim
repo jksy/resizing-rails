@@ -1,6 +1,11 @@
-= form_tag '' do
-  = file_field_tag 'video', id: 'video'
-  = submit_tag 'submit', id: 'submit'
+h1 動画アップロード
+
+form
+  .mb-3.row
+    label.form-label.col-sm-3.col-form-label for='video' File(MP4/MOV/AVI/WMV/ASF/WebM)
+    .col-sm-10
+      input.form-control#video type='file'
+  button.btn.btn-primary.mb-3#submit type='submit' upload
 
 javascript:
   video = new Resizing.Rails.VideoUploader(
@@ -17,12 +22,18 @@ javascript:
     }
   )
 
-ul
+.row.row-cols-1.row-cols-md-4.g-3
   - @videos.each do |video|
-    li
-      img class='js-video-thumbnail' data-video-url=video.data_self_url style='width: 320px; height: 200px;'
-      = link_to video do
-        = "#{video.id}:#{video.data_id}:#{video.data_state}"
+    .col
+      .card.h-100
+        img.js-video-thumbnail.card-img-top data-video-url=video.data_self_url
+        .card-body
+          h5.card-title = "#{video.id}:#{video.data_id}:#{video.data_state}"
+          p.card-text = 'aoiefosjfoajfoasdf'
+          = link_to 'Show video details', video, class: 'btn btn-primary'
+        .card-footer
+          small.text-muted = 'asfadf'
+
 
 javascript:
   document.addEventListener('DOMContentLoaded', function () {

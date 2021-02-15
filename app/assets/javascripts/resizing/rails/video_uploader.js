@@ -13,6 +13,7 @@ class VideoUploader {
   }
 
   upload() {
+    this.submit.setAttribute('disabled', 'true')
     let file = this.file_field.files[0]
     if(file === undefined) {
       console.log(this.file_field, 'no file found')
