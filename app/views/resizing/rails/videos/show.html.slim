@@ -23,6 +23,10 @@ javascript:
     progress = new Resizing.Rails.ProgressBar(document.querySelector('.progress-bar'), 0, 100)
 
     let setDataCopyURLOrRemoveElement = (elem, value) => {
+      if(!elem) {
+        return
+      }
+
       if(value) {
         elem.setAttribute('data-copy-url', value)
       } else {
