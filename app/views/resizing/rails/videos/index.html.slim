@@ -1,4 +1,3 @@
-
 h1 動画アップロード
 
 form
@@ -25,8 +24,10 @@ javascript:
 
   video.addEventListener(e => {
     switch(e) {
+    case 'no_file_found':
+      (new Resizing.Rails.Toast()).show('Error', 'ファイルを指定してください')
     case 'upload_failed':
-
+      (new Resizing.Rails.Toast()).show('Error', 'アップロードに失敗しました')
     }
     document.getElementById('submit').removeAttribute('disabled')
   })
@@ -54,12 +55,3 @@ javascript:
       })
     })
   })
-
-javascript:
-  document.addEventListener('DOMContentLoaded', function () {
-    for(var i = 0; i < 10; i++) {
-      toast = new Resizing.Rails.Toast()
-      toast.show('title', `body:${i}`)
-    }
-  })
-

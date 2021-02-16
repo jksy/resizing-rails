@@ -1,6 +1,10 @@
 window.Resizing ||= {}
 window.Resizing.Rails ||= {}
 
+// Usage
+// toast = new Resizing.Rails.Toast()
+// toast.show('title', 'body-text')
+//
 class Toast {
   constructor() {
     this.container = document.getElementById('toast-container')
@@ -11,8 +15,8 @@ class Toast {
     let $node = document.importNode(this.template, true)
     let $toast = $node.querySelector('.toast')
     let id = $toast.id = `toast-${this.generateUniqueId()}`
-    let $title = $node.querySelector('.title')
-    $title.textContent = title
+    $node.querySelector('.toast-title').textContent = title
+    $node.querySelector('.toast-body').textContent = text
     this.container.appendChild($node)
 
     let $elem = document.getElementById(id)
@@ -29,4 +33,3 @@ class Toast {
 }
 
 window.Resizing.Rails.Toast = Toast
-
