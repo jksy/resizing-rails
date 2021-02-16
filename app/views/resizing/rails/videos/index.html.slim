@@ -1,3 +1,4 @@
+
 h1 動画アップロード
 
 form
@@ -12,15 +13,23 @@ javascript:
     document.getElementById('video'),
     #{raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json}
   );
-  video.addEventListener(function (state) {
-  })
+
   document.getElementById('submit').addEventListener(
     'click',
     (e) => {
       e.preventDefault()
+      e.target.setAttribute('disabled', 'true')
       video.upload()
     }
   )
+
+  video.addEventListener(e => {
+    switch(e) {
+    case 'upload_failed':
+
+    }
+    document.getElementById('submit').removeAttribute('disabled')
+  })
 
 .row.row-cols-1.row-cols-md-4.g-3
   - @videos.each do |video|
@@ -34,7 +43,6 @@ javascript:
         .card-footer
           small.text-muted = 'asfadf'
 
-
 javascript:
   document.addEventListener('DOMContentLoaded', function () {
     elements = document.querySelectorAll('.js-video-thumbnail')
@@ -46,3 +54,12 @@ javascript:
       })
     })
   })
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function () {
+    for(var i = 0; i < 10; i++) {
+      toast = new Resizing.Rails.Toast()
+      toast.show('title', `body:${i}`)
+    }
+  })
+

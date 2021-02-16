@@ -7,16 +7,15 @@ window.Resizing.Rails ||= {}
 class VideoUploader {
   constructor(file_field, prepare_url) {
     this.file_field = file_field
-    this.submit = submit
     this.prepare_url = prepare_url
     this.callback = null
   }
 
   upload() {
-    this.submit.setAttribute('disabled', 'true')
     let file = this.file_field.files[0]
     if(file === undefined) {
       console.log(this.file_field, 'no file found')
+      this.call('upload_failed')
       return
     }
     this.prepare(file.name)
@@ -46,6 +45,12 @@ class VideoUploader {
 
   addEventListener(callback) {
     this.callback = callback
+  }
+
+  call(state) {
+    if(this.callback !== undefined) {
+      this.callback(state)
+    }
   }
 }
 
