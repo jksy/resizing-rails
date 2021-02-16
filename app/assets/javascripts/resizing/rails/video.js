@@ -5,23 +5,24 @@ window.Resizing ||= {}
 window.Resizing.Rails ||= {}
 
 class Video {
-  constructor(self_url, style, parentElement) {
+  constructor(self_url, parentElement) {
     this.self_url = self_url
-    this.style = style
     this.parentElement = parentElement
-    let video = this.buildVideoTag(style)
+    this.listener = null
+    let video = this.buildVideoTag()
     this.video = videojs(video.id, {fluid: true})
+    this.job_state = {}
   }
 
   fetch() {
     let fetcher = new Resizing.Rails.VideoFetcher(this.self_url)
     fetcher.fetch().then(record => {
-      console.log(record)
+      this.call('video_fetched', record)
       if(record.thumbnail_url) {
         this.renderVideo(record)
       }
       if(record.state != 'ready') {
-        setTimeout(this.fetch.bind(this), 30_000)
+        setTimeout(this.fetch.bind(this), 5_000)
       }
     })
   }
@@ -31,14 +32,13 @@ class Video {
     if(record.m3u8_url) {
       this.video.src({type: 'application/x-mpegURL', src: record.m3u8_url})
     }
-    // if(record.avc_url) {
-    //   this.video.src({type: 'video/mp4', src: record.avc_url})
-    // }
+    if(record.avc_url) {
+      this.video.src({type: 'video/mp4', src: record.avc_url})
+    }
   }
 
-  buildVideoTag(style) {
+  buildVideoTag() {
     let video = document.createElement('video')
-    // video.setAttribute('style', 'width: 100% !important; height 100% !important;')
     video.setAttribute('class', 'video-js')
     video.setAttribute('muted', 'true')
     video.setAttribute('controls', '')
@@ -46,16 +46,22 @@ class Video {
     video.setAttribute('data-setup', '{}')
     video.setAttribute('poster', '')
     video.id = `video-${this.generateUniqueId()}`
-
-    if(this.style) {
-      // video.setAttribute("style", this.style)
-    }
     this.parentElement.appendChild(video)
     return video
   }
 
   generateUniqueId() {
     return (new Date).getTime().toString(16)
+  }
+
+  addEventListener(listener) {
+    this.listener = listener
+  }
+
+  call(...args) {
+    if(this.listener !== null) {
+      this.listener(...args)
+    }
   }
 }
 

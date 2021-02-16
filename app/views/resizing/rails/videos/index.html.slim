@@ -21,13 +21,10 @@ h1 動画アップロード
             | HEVC
             a.card-link.hevc-url.data-copy-url href='#'
               | Copy URL
-            span.hevc-url = video.data_hevc_url
         .card-footer
           small.text-muted = 'asfadf'
         .card-body
           = link_to 'Show video details', video, class: 'btn btn-primary'
-
-input#clipboard type='text' value=''
 
 javascript:
   document.addEventListener('DOMContentLoaded', ()=> {
@@ -48,21 +45,5 @@ javascript:
         setDataCopyURLOrRemoveElement(elem.querySelector('.avc-url'), data.avc_url)
         setDataCopyURLOrRemoveElement(elem.querySelector('.hevc-url'), data.hevc_url)
       })
-    })
-
-    window.addEventListener('click', (e) => {
-      src = e.srcElement
-      if(src.hasAttribute('data-copy-url')) {
-        url = src.getAttribute('data-copy-url')
-        if(url !== null) {
-          elem = document.getElementById('clipboard')
-          elem.value = url
-          elem.select()
-          document.execCommand("copy")
-          toast = new Resizing.Rails.Toast()
-          index = url.lastIndexOf('/')
-          toast.show("コピーしました", '...' + url.substr(index, url.length))
-        }
-      }
     })
   })
