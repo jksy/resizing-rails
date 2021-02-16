@@ -1,57 +1,68 @@
 h1 動画アップロード
 
-form
-  .mb-3.row
-    label.form-label.col-sm-3.col-form-label for='video' File(MP4/MOV/AVI/WMV/ASF/WebM)
-    .col-sm-10
-      input.form-control#video type='file'
-  button.btn.btn-primary.mb-3#submit type='submit' upload
-
-javascript:
-  video = new Resizing.Rails.VideoUploader(
-    document.getElementById('video'),
-    #{raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json}
-  );
-
-  document.getElementById('submit').addEventListener(
-    'click',
-    (e) => {
-      e.preventDefault()
-      e.target.setAttribute('disabled', 'true')
-      video.upload()
-    }
-  )
-
-  video.addEventListener(e => {
-    switch(e) {
-    case 'no_file_found':
-      (new Resizing.Rails.Toast()).show('Error', 'ファイルを指定してください')
-    case 'upload_failed':
-      (new Resizing.Rails.Toast()).show('Error', 'アップロードに失敗しました')
-    }
-    document.getElementById('submit').removeAttribute('disabled')
-  })
+= render 'resizing/rails/videos/upload_form'
 
 .row.row-cols-1.row-cols-md-4.g-3
   - @videos.each do |video|
     .col
-      .card.h-100
-        img.js-video-thumbnail.card-img-top data-video-url=video.data_self_url
+      .card.h-100 data-video-url=video.data_self_url
+        img.js-video-thumbnail.card-img-top
         .card-body
-          h5.card-title = "#{video.id}:#{video.data_id}:#{video.data_state}"
-          p.card-text = 'aoiefosjfoajfoasdf'
-          = link_to 'Show video details', video, class: 'btn btn-primary'
+          h5.card-title = "#{video.id}:#{video.data_id}"
+        ul.list-group.list-group-flush
+          li.list-group-item
+            | State:
+            span.video-state = video.data_state
+          li.list-group-item
+            | AVC
+            a.card-link.avc-url.data-copy-url href='#'
+              | Copy URL
+          li.list-group-item
+            | HEVC
+            a.card-link.hevc-url.data-copy-url href='#'
+              | Copy URL
+            span.hevc-url = video.data_hevc_url
         .card-footer
           small.text-muted = 'asfadf'
+        .card-body
+          = link_to 'Show video details', video, class: 'btn btn-primary'
+
+input#clipboard type='text' value=''
 
 javascript:
-  document.addEventListener('DOMContentLoaded', function () {
-    elements = document.querySelectorAll('.js-video-thumbnail')
+  document.addEventListener('DOMContentLoaded', ()=> {
+    let setDataCopyURLOrRemoveElement = (elem, value) => {
+      if(value) {
+        elem.setAttribute('data-copy-url', value)
+      } else {
+        elem.remove()
+      }
+    }
+    elements = document.querySelectorAll('[data-video-url]')
     elements.forEach(elem => {
       url = elem.getAttribute('data-video-url')
       fetcher = new Resizing.Rails.VideoFetcher(url)
       fetcher.fetch().then(data => {
-        elem.setAttribute('src', data.thumbnail_url)
+        elem.querySelector('.js-video-thumbnail').setAttribute('src', data.thumbnail_url)
+        elem.querySelector('.video-state').textContent = data.state
+        setDataCopyURLOrRemoveElement(elem.querySelector('.avc-url'), data.avc_url)
+        setDataCopyURLOrRemoveElement(elem.querySelector('.hevc-url'), data.hevc_url)
       })
+    })
+
+    window.addEventListener('click', (e) => {
+      src = e.srcElement
+      if(src.hasAttribute('data-copy-url')) {
+        url = src.getAttribute('data-copy-url')
+        if(url !== null) {
+          elem = document.getElementById('clipboard')
+          elem.value = url
+          elem.select()
+          document.execCommand("copy")
+          toast = new Resizing.Rails.Toast()
+          index = url.lastIndexOf('/')
+          toast.show("コピーしました", '...' + url.substr(index, url.length))
+        }
+      }
     })
   })
