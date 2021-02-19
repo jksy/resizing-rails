@@ -21,11 +21,12 @@ class ProgressBar {
   }
 
   applyStyle() {
-    let percentage = this.current / (this.max - this.min)
+    let percentage = Math.floor(this.current / (this.max - this.min) * 100)
     this.element.style = `width: ${percentage}%;`
     this.element.setAttribute('aria-valuenow', this.current)
     this.element.setAttribute('aria-valuemin', this.min)
     this.element.setAttribute('aria-valuemax', this.max)
+    this.element.textContent = `${percentage}%`
   }
 }
 
