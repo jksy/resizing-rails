@@ -17,6 +17,21 @@
       | HEVC
       a.card-link.hevc-url.data-copy-url href='#'
         | Copy URL
+    li.list-group-item
+      label.form-label for='copy-tag' コピー用のタグ（このサイト内だけで有効です）
+      textarea#copy-tag class='form-control' rows='10'
+        | <div id='video-#{@video.id}'></div>
+          <script>
+          video = new Resizing.Rails.Video("#{@video.data_self_url}", document.querySelector('video-#{@video.id}'))
+          video.fetch()
+          </script>
+
+      p
+        | ※Resizing.Rails.Video classの読み込みが必要です。
+      b 例：
+      pre
+        code
+          | javascript_include_tag "resizing/rails/video"
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
@@ -29,8 +44,9 @@ javascript:
 
       if(value) {
         elem.setAttribute('data-copy-url', value)
+        elem.textContent = 'Copy URL'
       } else {
-        elem.remove()
+        elem.textContent = ''
       }
     }
 
@@ -38,6 +54,8 @@ javascript:
     video = new Resizing.Rails.Video("#{@video.data_self_url}", video_root)
     video.fetch()
     video.addEventListener((state, data) => {
+      console.log('eventListener')
+      console.log(data)
       switch(state) {
       case 'video_fetched':
         if(data.job_state?.job_percent_complete !== undefined) {

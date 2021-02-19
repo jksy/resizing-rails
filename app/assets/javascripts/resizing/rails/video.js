@@ -11,12 +11,13 @@ class Video {
     this.listener = null
     let video = this.buildVideoTag()
     this.video = videojs(video.id, {fluid: true})
-    this.job_state = {}
+    this.record = null
   }
 
   fetch() {
     let fetcher = new Resizing.Rails.VideoFetcher(this.self_url)
     fetcher.fetch().then(record => {
+      this.record = record
       this.call('video_fetched', record)
       if(record.thumbnail_url) {
         this.renderVideo(record)
