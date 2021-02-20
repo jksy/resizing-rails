@@ -5,7 +5,7 @@ module Resizing::Rails
     skip_before_action :verify_authenticity_token, only: [:prepare]
 
     def index
-      @videos = Resizing::Rails::Video.all
+      @videos = Resizing::Rails::Video.order('created_at desc').page(params[:page]).per(20)
       render text: 'index'
     end
 

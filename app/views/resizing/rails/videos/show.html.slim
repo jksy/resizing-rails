@@ -22,8 +22,10 @@
       textarea#copy-tag class='form-control' rows='10'
         | <div id='video-#{@video.id}'></div>
           <script>
-          video = new Resizing.Rails.Video("#{@video.data_self_url}", document.querySelector('video-#{@video.id}'))
-          video.fetch()
+          document.addEventListner('DOMContentLoaded', function () {
+            video = new Resizing.Rails.Video("#{@video.data_self_url}", document.querySelector('video-#{@video.id}'))
+            video.fetch()
+          })
           </script>
 
       p
