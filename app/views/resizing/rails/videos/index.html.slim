@@ -28,6 +28,8 @@ h1 動画アップロード
         .card-body
           = link_to 'Show video details', video, class: 'btn btn-primary'
 
+= paginate(@videos)
+
 javascript:
   document.addEventListener('DOMContentLoaded', ()=> {
     let setDataCopyURLOrRemoveElement = (elem, value) => {
