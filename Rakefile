@@ -5,6 +5,7 @@ rescue LoadError
 end
 
 require 'rdoc/task'
+require 'github_changelog_generator/task'
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
@@ -30,3 +31,11 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task default: :test
+
+
+GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+  config.user = 'jksy'
+  config.project = 'resizing-rails'
+  # config.since_tag = '0.0.1'
+  config.future_release = 'add-changelog'
+end
