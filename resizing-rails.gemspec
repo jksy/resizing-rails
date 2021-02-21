@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sassc"
 
   spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "github_changelog_generator"
 end
