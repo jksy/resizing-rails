@@ -1,0 +1,35 @@
+form
+  .mb-3.row
+    label.form-label.col-sm-3.col-form-label for='video' File(MP4/MOV/AVI/WMV/ASF/WebM)
+    .col-sm-10
+      input.form-control#video type='file'
+  button.btn.btn-primary.mb-3#submit type='submit' upload
+
+javascript:
+  document.addEventListener('DOMContentLoaded', (event)=> {
+    video = new Resizing.Rails.VideoUploader(
+      document.getElementById('video'),
+      #{raw Resizing::Rails.railtie_routes_url_helpers.prepare_videos_url(only_path: true).to_json}
+    );
+
+    document.getElementById('submit').addEventListener(
+      'click',
+      (e) => {
+        e.preventDefault()
+        e.target.setAttribute('disabled', 'true')
+        video.upload()
+      }
+    )
+
+    video.addEventListener(e => {
+      switch(e) {
+      case 'no_file_found':
+        (new Resizing.Rails.Toast()).show('Error', 'ファイルを指定してください')
+        break;
+      case 'upload_failed':
+        (new Resizing.Rails.Toast()).show('Error', 'アップロードに失敗しました')
+        break;
+      }
+      document.getElementById('submit').removeAttribute('disabled')
+    })
+  })

@@ -1,0 +1,75 @@
+
+.card
+  .card-img-top
+    #video
+  .card-body
+    .card-title = "Video##{@video.id}"
+  ul.list-group.list-group-flush
+    li.list-group-item
+      | 進捗
+      .progress
+        .progress-bar.progress-bar-striped.progress-bar-animated role='progressbar' style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" 25%
+    li.list-group-item
+      | AVC
+      a.card-link.avc-url.data-copy-url href='#'
+        | Copy URL
+    li.list-group-item
+      | HEVC
+      a.card-link.hevc-url.data-copy-url href='#'
+        | Copy URL
+    li.list-group-item
+      label.form-label for='copy-tag' コピー用のタグ（このサイト内だけで有効です）
+      textarea#copy-tag class='form-control' rows='10'
+        | <div id='video-#{@video.id}'></div>
+          <script>
+          document.addEventListner('DOMContentLoaded', function () {
+            video = new Resizing.Rails.Video("#{@video.data_self_url}", document.querySelector('video-#{@video.id}'))
+            video.fetch()
+          })
+          </script>
+
+      p
+        | ※Resizing.Rails.Video classの読み込みが必要です。
+      b 例：
+      pre
+        code
+          | javascript_include_tag "resizing/rails/video"
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    progress = new Resizing.Rails.ProgressBar(document.querySelector('.progress-bar'), 0, 100)
+
+    let setDataCopyURLOrRemoveElement = (elem, value) => {
+      if(!elem) {
+        return
+      }
+
+      if(value) {
+        elem.setAttribute('data-copy-url', value)
+        elem.textContent = 'Copy URL'
+      } else {
+        elem.textContent = ''
+      }
+    }
+
+    video_root = document.querySelector('#video')
+    video = new Resizing.Rails.Video("#{@video.data_self_url}", video_root)
+    video.fetch()
+    video.addEventListener((state, data) => {
+      console.log('eventListener')
+      console.log(data)
+      switch(state) {
+      case 'video_fetched':
+        if(data.job_state?.job_percent_complete !== undefined) {
+          progress.setCurrent(data.job_state?.job_percent_complete)
+        }
+        setDataCopyURLOrRemoveElement(document.querySelector('.avc-url'), data.avc_url)
+        setDataCopyURLOrRemoveElement(document.querySelector('.hevc-url'), data.hevc_url)
+        break
+      default:
+        break
+      }
+    })
+
+  })
+
