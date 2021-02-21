@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_135043) do
+ActiveRecord::Schema.define(version: 2021_02_21_202418) do
 
   create_table "resizing_rails_videos", force: :cascade do |t|
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "self_url"
   end
 
 end

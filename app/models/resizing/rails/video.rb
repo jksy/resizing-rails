@@ -1,6 +1,7 @@
 module Resizing::Rails
   class Video < ApplicationRecord
     serialize :data, JSON
+    validates :self_url, presence: true
 
     %w(
       id
