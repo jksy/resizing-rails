@@ -14,12 +14,12 @@ class VideoUploader {
   upload() {
     let file = this.file_field.files[0]
     if(file === undefined) {
-      this.call('no_file_found')
+      this.call('no_file_found', null)
       return
     }
     this.prepare(file.name)
     .catch(error => {
-      this.call('upload_failed')
+      this.call('upload_failed', error)
     })
   }
 
@@ -38,8 +38,7 @@ class VideoUploader {
 
   uploadFile(record) {
     let file = this.file_field.files[0]
-    let data = record.data
-    return fetch(data.s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
+    return fetch(record.s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
       .then(response => {
         if(!response.ok) {
           return Promise.reject(response)
@@ -51,15 +50,14 @@ class VideoUploader {
   }
 
   uploadDone(record) {
-    let data = record.data
-    return fetch(data.upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
+    return fetch(record.upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
       .then(response => {
         if(!response.ok) {
           return Promise.reject(response)
         }
         return response.json()
       }).then(data => {
-        window.location.pathname = record.self_path
+        this.call('done', data)
       })
   }
 
@@ -67,9 +65,9 @@ class VideoUploader {
     this.callback = callback
   }
 
-  call(state) {
+  call(state, error) {
     if(this.callback !== undefined) {
-      this.callback(state)
+      this.callback(state, error)
     }
   }
 }
