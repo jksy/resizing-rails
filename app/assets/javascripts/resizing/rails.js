@@ -1,4 +1,4 @@
-//= require resizing/rails/clipboard
+//#= require resizing/rails/clipboard
 //= require resizing/rails/progressbar
 //= require resizing/rails/toast
 //= require resizing/rails/video
