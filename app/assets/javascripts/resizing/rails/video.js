@@ -22,7 +22,7 @@ class Video {
       if(record.thumbnail_url) {
         this.renderVideo(record)
       }
-      if(record.state != 'ready') {
+      if(record.state != 'ready' && record.state != 'initialized') {
         setTimeout(this.fetch.bind(this), 5_000)
       }
     })
