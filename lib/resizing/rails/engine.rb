@@ -10,8 +10,8 @@ module Resizing
       isolate_namespace Resizing::Rails
 
       initializer 'ResizingRails precompile hook', group: :all do |app|
-        path = File.join(File.dirname(__FILE__), '../../../', '/app/assets/javascripts')
-        app.config.assets.paths << path
+        app.config.assets.paths << File.join(File.dirname(__FILE__), '../../../', '/app/assets/javascripts')
+        app.config.assets.paths << File.join(File.dirname(__FILE__), '../../../', '/app/assets/stylesheets')
         app.config.assets.precompile += %w(
           resizing/rails.js
           resizing/rails.css
