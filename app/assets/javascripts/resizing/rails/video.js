@@ -1,8 +1,8 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-window.Resizing ||= {}
-window.Resizing.Rails ||= {}
+if(window.Resizing === undefined) { window.Resizing = {} }
+if(window.Resizing.Rails === undefined) { window.Resizing.Rails = {} }
 
 class Video {
   constructor(self_url, parentElement) {
@@ -23,7 +23,7 @@ class Video {
         this.renderVideo(record)
       }
       if(record.state != 'ready' && record.state != 'initialized') {
-        setTimeout(this.fetch.bind(this), 5_000)
+        setTimeout(this.fetch.bind(this), 5000)
       }
     })
   }

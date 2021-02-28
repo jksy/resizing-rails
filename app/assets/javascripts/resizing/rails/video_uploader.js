@@ -1,8 +1,8 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-window.Resizing ||= {}
-window.Resizing.Rails ||= {}
+if(window.Resizing === undefined) { window.Resizing = {} }
+if(window.Resizing.Rails === undefined) { window.Resizing.Rails = {} }
 
 class VideoUploader {
   constructor(file_field, prepare_url) {
