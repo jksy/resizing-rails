@@ -10,21 +10,24 @@ h1 動画アップロード
       .card.h-100 data-video-url=video.data_self_url
         img.js-video-thumbnail.card-img-top
         .card-body
-          h5.card-title = "#{video.id}:#{video.data_id}"
+          h5.card-title = "#{video.id}"
         ul.list-group.list-group-flush
           li.list-group-item
-            | State:
-            span.video-state = video.data_state
+            dl
+              dt State
+              dd.video-state
           li.list-group-item
-            | AVC
-            a.card-link.avc-url.data-copy-url href='#'
-              | Copy URL
+            dl
+              dt AVC
+              dd
+                a.card-link.avc-url.data-copy-url href='#'
+                  | Copy URL
           li.list-group-item
-            | HEVC
-            a.card-link.hevc-url.data-copy-url href='#'
-              | Copy URL
-        .card-footer
-          small.text-muted = 'asfadf'
+            dl
+              dt HEVC
+              dd
+                a.card-link.hevc-url.data-copy-url href='#'
+                  | Copy URL
         .card-body
           = link_to 'Show video details', video, class: 'btn btn-primary'
 

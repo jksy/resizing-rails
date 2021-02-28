@@ -38,7 +38,8 @@ class VideoUploader {
 
   uploadFile(record) {
     let file = this.file_field.files[0]
-    return fetch(record.s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
+    let s3_presigned_url = record.data?.s3_presigned_url || record.s3_presigned_url
+    return fetch(s3_presigned_url, {method: 'PUT', credentials: 'same-origin', headers: {'Content-Type': file.type}, body: file})
       .then(response => {
         if(!response.ok) {
           return Promise.reject(response)
@@ -50,7 +51,8 @@ class VideoUploader {
   }
 
   uploadDone(record) {
-    return fetch(record.upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
+    let upload_completed_url = record.data?.upload_completed_url || record.upload_completed_url
+    return fetch(upload_completed_url, {method: 'PUT', credentials: 'same-origin', headers:{'Content-Type': 'application/json'}})
       .then(response => {
         if(!response.ok) {
           return Promise.reject(response)

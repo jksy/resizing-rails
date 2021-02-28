@@ -10,13 +10,15 @@
       .progress
         .progress-bar.progress-bar-striped.progress-bar-animated role='progressbar' style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" 25%
     li.list-group-item
-      | AVC
-      a.card-link.avc-url.data-copy-url href='#'
-        | Copy URL
-    li.list-group-item
-      | HEVC
-      a.card-link.hevc-url.data-copy-url href='#'
-        | Copy URL
+      dl.row
+        dt.col-2 AVC
+        dd.col-10
+          a.card-link.avc-url.data-copy-url href='#'
+            | Copy URL
+        dt.col-2 HEVC
+        dd.col-10
+          a.card-link.hevc-url.data-copy-url href='#'
+            | Copy URL
     li.list-group-item
       label.form-label for='copy-tag' コピー用のタグ（このサイト内だけで有効です）
       textarea#copy-tag class='form-control' rows='10'
@@ -29,11 +31,14 @@
           </script>
 
       p
-        | ※Resizing.Rails.Video classの読み込みが必要です。
+        | ※スタイルシートとJavaScriptの読み込みが必要です。
       b 例：
-      pre
+      br
+      | app/views/layouts/application.html.slim へ以下を追加
+      pre.bg-light
         code
-          | javascript_include_tag "resizing/rails/video"
+          | = stylesheet_link_tag 'resizing/rails', media: 'all'
+            = javascript_include_tag "resizing/rails"
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {

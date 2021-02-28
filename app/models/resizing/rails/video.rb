@@ -1,7 +1,6 @@
 module Resizing::Rails
   class Video < ApplicationRecord
     serialize :data, JSON
-    validates :self_url, presence: true
 
     %w(
       id
@@ -22,7 +21,9 @@ module Resizing::Rails
       job_state
     ).each do |name|
       define_method "data_#{name}" do
-        self.data[name]
+        if self.data
+          self.data[name]
+        end
       end
     end
 
