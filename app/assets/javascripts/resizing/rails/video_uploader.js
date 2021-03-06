@@ -32,6 +32,7 @@ class VideoUploader {
         }
         return response.json()
       }).then(record => {
+        this.call('prepared', record)
         return this.uploadFile(record)
       })
   }
