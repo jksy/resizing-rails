@@ -21,14 +21,22 @@ javascript:
       }
     )
 
-    video.addEventListener(e => {
+    var completed_url = null;
+
+    video.addEventListener((e, record) => {
       switch(e) {
       case 'no_file_found':
         (new Resizing.Rails.Toast()).show('Error', 'ファイルを指定してください')
-        break;
+        break
       case 'upload_failed':
         (new Resizing.Rails.Toast()).show('Error', 'アップロードに失敗しました')
-        break;
+        break
+      case 'prepared':
+        completed_url = record.self_path // save url when uploading file is completed.
+        break
+      case 'done':
+        window.location.href = completed_url // and redirect to Video#show
+        break
       }
       document.getElementById('submit').removeAttribute('disabled')
     })

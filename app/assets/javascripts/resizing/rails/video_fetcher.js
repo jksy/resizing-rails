@@ -1,5 +1,5 @@
-window.Resizing ||= {}
-window.Resizing.Rails ||= {}
+if(window.Resizing === undefined) { window.Resizing = {} }
+if(window.Resizing.Rails === undefined) { window.Resizing.Rails = {} }
 
 class VideoFetcher {
   constructor(self_url) {

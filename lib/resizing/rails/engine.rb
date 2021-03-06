@@ -9,12 +9,14 @@ module Resizing
     class Engine < ::Rails::Engine
       isolate_namespace Resizing::Rails
 
-      # initializer 'ResizingRails precompile hook', group: :all do |app|
-      #   puts app.config.assets.precompile
-      #   app.config.assets.precompile += %w(
-      #     resizing/rails/videos.js
-      #   )
-      # end
+      initializer 'ResizingRails precompile hook', group: :all do |app|
+        app.config.assets.paths << File.join(File.dirname(__FILE__), '../../../', '/app/assets/javascripts')
+        app.config.assets.paths << File.join(File.dirname(__FILE__), '../../../', '/app/assets/stylesheets')
+        app.config.assets.precompile += %w(
+          resizing/rails.js
+          resizing/rails.css
+        )
+      end
 
       # rake_tasks do
       #   Dir[File.join(File.dirname(__FILE__), '../tasks/*.rake')].each { |f| load f }
