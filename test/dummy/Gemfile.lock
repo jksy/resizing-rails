@@ -7,7 +7,7 @@ PATH
 PATH
   remote: ../..
   specs:
-    resizing-rails (0.1.0.pre2)
+    resizing-rails (0.2.0)
       bootstrap (~> 5.0.0.beta1)
       kaminari
       rails (>= 5.2.4)
