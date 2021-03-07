@@ -1,11 +1,28 @@
 # Changelog
 
-## [add-changelog](https://github.com/jksy/resizing-rails/tree/add-changelog) (2021-02-21)
+## [v0.2.0](https://github.com/jksy/resizing-rails/tree/v0.2.0) (2021-03-07)
 
-[Full Changelog](https://github.com/jksy/resizing-rails/compare/19207cb28d7d23bfe3c5724aae17e0e2abca67a4...add-changelog)
+[Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.1.0.pre2...v0.2.0)
 
 **Merged pull requests:**
 
+- Update to v0.2.0 [\#5](https://github.com/jksy/resizing-rails/pull/5) ([jksy](https://github.com/jksy))
+
+## [v0.1.0.pre2](https://github.com/jksy/resizing-rails/tree/v0.1.0.pre2) (2021-03-06)
+
+[Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.1.0.pre...v0.1.0.pre2)
+
+**Merged pull requests:**
+
+- Feature/add self url to videos [\#4](https://github.com/jksy/resizing-rails/pull/4) ([jksy](https://github.com/jksy))
+
+## [v0.1.0.pre](https://github.com/jksy/resizing-rails/tree/v0.1.0.pre) (2021-02-21)
+
+[Full Changelog](https://github.com/jksy/resizing-rails/compare/19207cb28d7d23bfe3c5724aae17e0e2abca67a4...v0.1.0.pre)
+
+**Merged pull requests:**
+
+- add change log [\#2](https://github.com/jksy/resizing-rails/pull/2) ([jksy](https://github.com/jksy))
 - Feature/initial version [\#1](https://github.com/jksy/resizing-rails/pull/1) ([jksy](https://github.com/jksy))
 
 
