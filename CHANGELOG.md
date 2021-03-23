@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.3.0](https://github.com/jksy/resizing-rails/tree/v0.3.0) (2021-03-23)
+
+[Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.2.0...v0.3.0)
+
+**Closed issues:**
+
+- bootstrapのバージョン [\#8](https://github.com/jksy/resizing-rails/issues/8)
+- prepare\_urlのhelper作成 [\#7](https://github.com/jksy/resizing-rails/issues/7)
+- Video fetcher\(JS\)の作成 [\#6](https://github.com/jksy/resizing-rails/issues/6)
+
+**Merged pull requests:**
+
+- add video loader. add some helper method. and bootstrap version is un… [\#9](https://github.com/jksy/resizing-rails/pull/9) ([jksy](https://github.com/jksy))
+
 ## [v0.2.0](https://github.com/jksy/resizing-rails/tree/v0.2.0) (2021-03-07)
 
 [Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.1.0.pre2...v0.2.0)
