@@ -12,6 +12,7 @@ class Video {
     let video = this.buildVideoTag()
     this.video = videojs(video.id, {fluid: true})
     this.record = null
+    this.refresh_seconds = 30
   }
 
   fetch() {
@@ -23,7 +24,7 @@ class Video {
         this.renderVideo(record)
       }
       if(record.state != 'ready' && record.state != 'initialized') {
-        setTimeout(this.fetch.bind(this), 5000)
+        setTimeout(this.fetch.bind(this), this.refresh_seconds * 1000)
       }
     })
   }
