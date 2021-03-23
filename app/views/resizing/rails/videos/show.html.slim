@@ -21,25 +21,31 @@ h1 動画詳細
           a.card-link.hevc-url.data-copy-url href='#'
             | Copy URL
     li.list-group-item
-      label.form-label for='copy-tag' コピー用のタグ（このサイト内だけで有効です）
-      textarea#copy-tag class='form-control' rows='10'
-        | <div id='video-#{@video.id}'></div>
+      h4 コピー用のタグ
+      h5 スタイルシートとJavaScriptの読み込み（共通）
+      | app/views/layouts/application.html.slim へ以下を追加
+      pre.bg-light
+        textarea class='form-control' rows='3'
+          | = stylesheet_link_tag 'resizing/rails', media: 'all'
+            = javascript_include_tag "resizing/rails"
+
+      h5 HTML & JavaScriptの場合:
+      textarea class='form-control' rows='10'
+        |
+          <div data-video-url="video-#{@video.id}"></div>
           <script>
-          document.addEventListner('DOMContentLoaded', function () {
+          window.addEventListner('DOMContentLoaded', function () {
             video = new Resizing.Rails.Video("#{@video.data_self_url}", document.querySelector('video-#{@video.id}'))
             video.fetch()
           })
           </script>
-
-      p
-        | ※スタイルシートとJavaScriptの読み込みが必要です。
-      b 例：
-      br
-      | app/views/layouts/application.html.slim へ以下を追加
-      pre.bg-light
-        code
-          | = stylesheet_link_tag 'resizing/rails', media: 'all'
-            = javascript_include_tag "resizing/rails"
+      h5 ERBの場合:
+      textarea class='form-control' rows='5'
+        | # Controller内で該当のレコードを取得する
+          @video_record = Resizing::Rails::Video.find(#{@video.id})
+          &nbsp;
+          # View内でHelperを使ってタグ出力する
+          <%= Resizing::Rails::VideosHelper.resizing_video_tag(@video_record) %>
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
