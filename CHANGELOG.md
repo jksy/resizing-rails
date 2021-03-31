@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.0](https://github.com/jksy/resizing-rails/tree/v0.4.0) (2021-03-31)
+
+[Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.3.0...v0.4.0)
+
+**Merged pull requests:**
+
+- remove dependency bootstarp on gem [\#10](https://github.com/jksy/resizing-rails/pull/10) ([jksy](https://github.com/jksy))
+
 ## [v0.3.0](https://github.com/jksy/resizing-rails/tree/v0.3.0) (2021-03-23)
 
 [Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.2.0...v0.3.0)
@@ -26,16 +34,13 @@
 
 [Full Changelog](https://github.com/jksy/resizing-rails/compare/v0.1.0.pre...v0.1.0.pre2)
 
-**Merged pull requests:**
-
-- Feature/add self url to videos [\#4](https://github.com/jksy/resizing-rails/pull/4) ([jksy](https://github.com/jksy))
-
 ## [v0.1.0.pre](https://github.com/jksy/resizing-rails/tree/v0.1.0.pre) (2021-02-21)
 
 [Full Changelog](https://github.com/jksy/resizing-rails/compare/19207cb28d7d23bfe3c5724aae17e0e2abca67a4...v0.1.0.pre)
 
 **Merged pull requests:**
 
+- Feature/add self url to videos [\#4](https://github.com/jksy/resizing-rails/pull/4) ([jksy](https://github.com/jksy))
 - add change log [\#2](https://github.com/jksy/resizing-rails/pull/2) ([jksy](https://github.com/jksy))
 - Feature/initial version [\#1](https://github.com/jksy/resizing-rails/pull/1) ([jksy](https://github.com/jksy))
 
