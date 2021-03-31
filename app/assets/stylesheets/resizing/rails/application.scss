@@ -11,6 +11,6 @@
  * It is generally better to create a new file per style scope.
  *
  */
-@import 'bootstrap';
 @import 'videos';
-@import 'videojs/7.8.2/video-js.min.css'
+@import 'bootstrap/bootstrap.min.css';
+@import 'videojs/7.8.2/video-js.min.css';
