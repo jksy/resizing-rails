@@ -29,7 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "resizing", '~> 0.8.1'
   spec.add_dependency "slim-rails"
   spec.add_dependency "kaminari"
-  # spec.add_dependency 'bootstrap', '~> 5.0.0.beta1'
-  spec.add_dependency 'bootstrap'
   spec.add_dependency "sassc"
 end
