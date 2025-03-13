@@ -1,3 +1,5 @@
+# This repository is archived.
+
 # Resizing::Rails
 Short description and motivation.
 
